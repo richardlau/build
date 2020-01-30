@@ -4,6 +4,6 @@ extends: relaxed
 
 rules:
   colons: {max-spaces-after: -1}
-  indentation: {indent-sequences: whatever}
+  indentation: {indent-sequences: whatever, spaces: consistent}
   line-length: disable
   
