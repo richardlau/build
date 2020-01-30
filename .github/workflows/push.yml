@@ -22,3 +22,11 @@ jobs:
         pip install flake8
         flake8 --version
         flake8 .
+  yaml:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install yamllint
+        run: pip install --user yamllint
+      - name: Lint with yamllint
+        run: yamllint .
