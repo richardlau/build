@@ -1,3 +1,9 @@
 ---
 
-extends: relaxed
+extends: default
+
+rules:
+  colons: {max-spaces-after: -1}
+  indentation: {indent-sequences: whatever}
+  line-length: disable
+  
