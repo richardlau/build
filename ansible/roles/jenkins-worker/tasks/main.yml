@@ -84,9 +84,8 @@
   when: "'rhel7-s390x' in inventory_hostname"
 
 - name: Firewall | remove firewalld
-  when: has_firewalld.rc == 0
   raw: yum remove -y firewalld
-  when: "'rhel7-s390x' in inventory_hostname"
+  when: "'rhel7-s390x' in inventory_hostname and has_firewalld.rc == 0"
 
 - name: Firewall | add rule to allow accepting multicast
   lineinfile:
@@ -128,7 +127,7 @@
     content: "127.0.0.1 localhost\n::1 localhost\n"
     dest: /etc/ipnodes
 
-- name: Resolver | set DNS resolving priorities for zos 
+- name: Resolver | set DNS resolving priorities for zos
   when: os|startswith("zos")
   copy:
     content: "LOOKUP LOCAL DNS"

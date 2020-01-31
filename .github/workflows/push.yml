@@ -1,14 +1,14 @@
-name: on push or pull_request
+name: Lint
 on: [push, pull_request]
 jobs:
-  build:
+  Python:
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 2
       matrix:
         python-version: [2.7, 3.7]
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v1
       with:
@@ -22,3 +22,17 @@ jobs:
         pip install flake8
         flake8 --version
         flake8 .
+  yaml:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1 # install eslint problem matcher
+        with:
+          nodejs_version: 12.x
+      - uses: actions/setup-python@v1
+        with:
+          python_version: 3.8
+      - name: Install yamllint
+        run: pip install yamllint
+      - name: Lint with yamllint
+        run: yamllint .
