@@ -85,7 +85,7 @@
 
 - name: Firewall | remove firewalld
   raw: yum remove -y firewalld
-  when: "'rhel7-s390x' in inventory_hostname" and has_firewalld.rc == 0
+  when: "'rhel7-s390x' in inventory_hostname and has_firewalld.rc == 0"
 
 - name: Firewall | add rule to allow accepting multicast
   lineinfile:
