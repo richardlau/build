@@ -161,7 +161,10 @@ if (parameters['NODEJS_MAJOR_VERSION'])
   println "0: ${parameters['NODEJS_MAJOR_VERSION'].getClass()}"
   println "0: ${parameters['NODEJS_MAJOR_VERSION']}"
   println "1: ${parameters['NODEJS_MAJOR_VERSION'].toString()}"
-  nodeMajorVersion = parameters['NODEJS_MAJOR_VERSION'].toString().toInteger()
+  if (parameters['NODEJS_MAJOR_VERSION'].getClass().isArray())
+    nodeMajorVersion = new String(parameters['NODEJS_MAJOR_VERSION']).toInteger()
+  else
+    nodeMajorVersion = parameters['NODEJS_MAJOR_VERSION'].toString().toInteger()
 println "Node.js major version: $nodeMajorVersion"
 println "Node.js version: ${parameters['NODEJS_VERSION']}"
 
