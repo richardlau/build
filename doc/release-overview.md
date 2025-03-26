@@ -8,6 +8,8 @@ This is an overview of infrastructure owned/managed by the Build WG and how it i
 architecture-beta
     group buildInfra[Infrastructure maintained by Build WG]
     group webServers[www servers] in buildInfra
+    group testjenkins[Test CI] in buildInfra
+    group testagents[Test machines] in testjenkins
     group releasejenkins[Release CI] in buildInfra
     group releaseagents(cloud)[Release machines] in releasejenkins
     group github(cloud)[GitHub]
@@ -15,6 +17,8 @@ architecture-beta
     group r2(cloud)[R2] in cloudflare
     group vercel(cloud)[Vercel]
 
+    service testci(server)[Jenkins] in testjenkins
+    service testagent(server)[test machine] in testagents
     service releaseci(server)[Jenkins] in releasejenkins
     service releaseagent(server)[release machine] in releaseagents
     service direct(server)[www server] in webServers
@@ -28,6 +32,7 @@ architecture-beta
     service worker(cloud)[worker] in cloudflare
     service website(cloud)[nodejs_org] in vercel
 
+    testci:R -- L:testagent{group}
     releaseci:R -- L:releaseagent{group}
     releaseagent:R --> L:direct
     direct:B --> T:unencrypted
@@ -38,6 +43,7 @@ architecture-beta
     ghnodeorg:L --> R:website
     ghcfworker:R --> L:worker
     ghnode:B --> T:releaseagent
+    ghnode:B --> T:testagent
 ```
 
 This diagram shows the major components of how a Node.js release is built and made publicly available on [nodejs.org][].
