@@ -34,7 +34,7 @@ if [ -z ${NODEJS_MAJOR_VERSION+x} ]; then
 fi
 
 # Gradual transition to Clang from Node.js 25 (https://github.com/nodejs/build/issues/4091).
-if [ "$NODEJS_MAJOR_VERSION" -ge "25" ]; then
+if [ "$NODEJS_MAJOR_VERSION" -ge "27" ]; then
   case $NODE_NAME in
     *fedora*)
       echo "Using Clang for Node.js $NODEJS_MAJOR_VERSION"
@@ -79,7 +79,7 @@ case $NODE_NAME in
   *rhel9*|*ubi9*)
     echo "Setting compiler for Node.js $NODEJS_MAJOR_VERSION on" `cat /etc/redhat-release`
     if [ "$NODEJS_MAJOR_VERSION" -gt "22" ]; then
-      . /opt/rh/gcc-toolset-12/enable
+      . /opt/rh/gcc-toolset-14/enable
     elif [ "$NODEJS_MAJOR_VERSION" -gt "21" ]; then
       # s390x, use later toolset to avoid https://gcc.gnu.org/bugzilla/show_bug.cgi?id=106355
       if [ "$SELECT_ARCH" = "S390X" ]; then
